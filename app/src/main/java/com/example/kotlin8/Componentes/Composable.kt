@@ -1,12 +1,11 @@
 package com.example.kotlin8.Componentes
 
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,25 +27,25 @@ fun SegmentedButtonGroup(
     onOptionSelected: (String) -> Unit
 ) {
     Row(
-        modifier = Modifier
-            .padding(vertical = 8.dp)
-            .background(Color.Gray, shape = RoundedCornerShape(16.dp)),
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.fillMaxWidth()
     ) {
         options.forEach { option ->
             Button(
                 onClick = { onOptionSelected(option) },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedOption == option) Color.Blue else Color.LightGray,
+                    containerColor = if (option == selectedOption) Color.Blue else Color.LightGray,
                     contentColor = Color.White
                 ),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.padding(4.dp)
             ) {
                 Text(text = option)
             }
         }
     }
 }
+
+
 @Composable
 fun InputField(
     value: String,
@@ -86,4 +85,22 @@ fun CalculadoraIMCApp() {
             HomeView()
         }
     }
+}
+
+@Composable
+fun InputField(
+    value: String,
+    label: String,
+    onValueChange: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = label) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
+        keyboardOptions = keyboardOptions
+    )
 }
